@@ -2,7 +2,18 @@ import streamlit as st
 import pickle
 import pandas as pd
 import requests
+import gdown 
 
+# URL for the file from Google Drive
+url = 'https://drive.google.com/uc?id=1973jZbAIkoJUNcwutQ6EEuxIfked4GYS'
+output = 'similarity.pkl'
+
+# Download the file from Google Drive
+gdown.download(url, output, quiet=False)
+
+# Load the pickle file
+with open('similarity.pkl', 'rb') as f:
+    similarity = pickle.load(f)
 
 API_KEY = '8265bd1679663a7ea12ac168da84d2e8'
 
