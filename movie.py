@@ -2,7 +2,7 @@ import streamlit as st
 import pickle
 import pandas as pd
 import requests
-import gdown 
+import gdown
 
 # URL for the file from Google Drive
 url = 'https://drive.google.com/uc?id=1973jZbAIkoJUNcwutQ6EEuxIfked4GYS'
@@ -11,12 +11,11 @@ output = 'similarity.pkl'
 # Download the file from Google Drive
 gdown.download(url, output, quiet=False)
 
-# Load the pickle file
-with open('similarity.pkl', 'rb') as f:
+# Load the similarity pickle file
+with open(output, 'rb') as f:
     similarity = pickle.load(f)
 
 API_KEY = '8265bd1679663a7ea12ac168da84d2e8'
-
 
 # Function to fetch movie details from TMDB
 @st.cache_data
@@ -42,7 +41,6 @@ def fetch_movie_details(movie_id):
     }
     return movie_details
 
-
 # Function to fetch movie recommendations
 def recommend(movie):
     try:
@@ -61,11 +59,9 @@ def recommend(movie):
         recommended_movies.append(movie_details)
     return recommended_movies
 
-
-# Load the movies data and similarity matrix
+# Load the movies data
 movies_dict = pickle.load(open('movie_dict.pkl', 'rb'))
 movies = pd.DataFrame(movies_dict)
-similarity = pickle.load(open('similarity.pkl', 'rb'))
 
 # App Title
 st.title("🎬 Movie Recommendation System")
